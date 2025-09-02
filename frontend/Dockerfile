@@ -25,7 +25,7 @@ FROM nginx:alpine
 
 # Copiar los archivos de la aplicación compilada desde la etapa "build"
 # al directorio por defecto de Nginx para servir páginas web.
-COPY --from=build /usr/src/app/dist /usr/share/nginx/html
+COPY --from=build /usr/src/app/dist/pid-frontend /usr/share/nginx/html
 
 # Exponer el puerto 80 para que el contenedor pueda recibir tráfico HTTP
 EXPOSE 80
