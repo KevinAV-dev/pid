@@ -16,11 +16,11 @@ services:
       - mysql_data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     healthcheck:
-    test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--silent"]
-    interval: 10s
-    timeout: 5s
-    retries: 5
-    restart: always
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "--silent"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      restart: always
 
   # 2. Servicio del Backend (Spring Boot)
   backend:
