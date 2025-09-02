@@ -31,8 +31,8 @@ services:
       - "8080:8080"
     restart: always
     depends_on:
-      - db
-    condition: service_healthy
+      db
+        condition: service_healthy
     environment:
       # Usa el nombre del servicio 'db' para conectarte a la base de datos
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/formulario
