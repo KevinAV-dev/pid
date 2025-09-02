@@ -1,5 +1,42 @@
 USE formulario;
 
+create table PID_PERSONA
+(
+    PERSONA_ID                   int auto_increment
+        primary key,
+    PERSONA_TIPO_DOCUMENTO_ID    int                                    not null,
+    PERSONA_TIPO_DOCUMENTO_VALOR varchar(20)                            not null,
+    PERSONA_NOMBRES              varchar(300) default 'SIN NOMBRE'      not null,
+    PERSONA_APELLIDOS            varchar(300) default 'SIN APELLIDO'    not null,
+    PERSONA_GENERO               char(2)      default '01'              not null comment '01: Masculino, 02: Femenino',
+    PERSONA_DIRECCION            varchar(300)                           null,
+    PERSONA_FECHA_NACIMIENTO     date                                   null,
+    PERSONA_ESTADO               char(2)      default '01'              not null comment '01: Activo, 02: Inactivo',
+    PERSONA_USUARIO_CREACION     int                                    null,
+    PERSONA_FECHA_CREACION       datetime     default CURRENT_TIMESTAMP null,
+    PERSONA_USUARIO_MODIFICACION int                                    null,
+    PERSONA_FECHA_MODIFICACION   datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+    constraint PID_PERSONA_UK_1
+        unique (PERSONA_TIPO_DOCUMENTO_VALOR),
+    constraint PID_PERSONA_FK_1
+        foreign key (PERSONA_TIPO_DOCUMENTO_ID) references PID_TIPO_DOCUMENTO (TIPO_DOCUMENTO_ID)
+);
+
+create table PID_TIPO_DOCUMENTO
+(
+    TIPO_DOCUMENTO_ID                   int auto_increment
+        primary key,
+    TIPO_DOCUMENTO_CODIGO               varchar(10)                            not null,
+    TIPO_DOCUMENTO_DESCRIPCION          varchar(300) default 'SIN DESCRIPCIÓN' null,
+    TIPO_DOCUMENTO_ESTADO               char(2)      default '01'              not null comment '01: Activo, 02: Inactivo',
+    TIPO_DOCUMENTO_USUARIO_CREACION     int                                    null,
+    TIPO_DOCUMENTO_FECHA_CREACION       datetime     default CURRENT_TIMESTAMP null,
+    TIPO_DOCUMENTO_USUARIO_MODIFICACION int                                    null,
+    TIPO_DOCUMENTO_FECHA_MODIFICACION   datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+    constraint PID_TIPO_DOCUMENTO_UK_1
+        unique (TIPO_DOCUMENTO_CODIGO)
+);
+
 create table PID_CORREO
 (
     CORREO_ID                   int auto_increment
@@ -67,27 +104,7 @@ create table PID_NOVEL
         foreign key (NOVEL_INSTITUCION_EDUCATIVA_ID) references PID_INSTITUCION_EDUCATIVA (INSTITUCION_EDUCATIVA_ID)
 );
 
-create table PID_PERSONA
-(
-    PERSONA_ID                   int auto_increment
-        primary key,
-    PERSONA_TIPO_DOCUMENTO_ID    int                                    not null,
-    PERSONA_TIPO_DOCUMENTO_VALOR varchar(20)                            not null,
-    PERSONA_NOMBRES              varchar(300) default 'SIN NOMBRE'      not null,
-    PERSONA_APELLIDOS            varchar(300) default 'SIN APELLIDO'    not null,
-    PERSONA_GENERO               char(2)      default '01'              not null comment '01: Masculino, 02: Femenino',
-    PERSONA_DIRECCION            varchar(300)                           null,
-    PERSONA_FECHA_NACIMIENTO     date                                   null,
-    PERSONA_ESTADO               char(2)      default '01'              not null comment '01: Activo, 02: Inactivo',
-    PERSONA_USUARIO_CREACION     int                                    null,
-    PERSONA_FECHA_CREACION       datetime     default CURRENT_TIMESTAMP null,
-    PERSONA_USUARIO_MODIFICACION int                                    null,
-    PERSONA_FECHA_MODIFICACION   datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
-    constraint PID_PERSONA_UK_1
-        unique (PERSONA_TIPO_DOCUMENTO_VALOR),
-    constraint PID_PERSONA_FK_1
-        foreign key (PERSONA_TIPO_DOCUMENTO_ID) references PID_TIPO_DOCUMENTO (TIPO_DOCUMENTO_ID)
-);
+
 
 create table PID_TELEFONO
 (
@@ -106,20 +123,7 @@ create table PID_TELEFONO
         foreign key (TELEFONO_PERSONA_ID) references PID_PERSONA (PERSONA_ID)
 );
 
-create table PID_TIPO_DOCUMENTO
-(
-    TIPO_DOCUMENTO_ID                   int auto_increment
-        primary key,
-    TIPO_DOCUMENTO_CODIGO               varchar(10)                            not null,
-    TIPO_DOCUMENTO_DESCRIPCION          varchar(300) default 'SIN DESCRIPCIÓN' null,
-    TIPO_DOCUMENTO_ESTADO               char(2)      default '01'              not null comment '01: Activo, 02: Inactivo',
-    TIPO_DOCUMENTO_USUARIO_CREACION     int                                    null,
-    TIPO_DOCUMENTO_FECHA_CREACION       datetime     default CURRENT_TIMESTAMP null,
-    TIPO_DOCUMENTO_USUARIO_MODIFICACION int                                    null,
-    TIPO_DOCUMENTO_FECHA_MODIFICACION   datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
-    constraint PID_TIPO_DOCUMENTO_UK_1
-        unique (TIPO_DOCUMENTO_CODIGO)
-);
+
 
 insert into formulario.PID_TIPO_DOCUMENTO (TIPO_DOCUMENTO_ID, TIPO_DOCUMENTO_CODIGO, TIPO_DOCUMENTO_DESCRIPCION, TIPO_DOCUMENTO_ESTADO, TIPO_DOCUMENTO_USUARIO_CREACION, TIPO_DOCUMENTO_FECHA_CREACION, TIPO_DOCUMENTO_USUARIO_MODIFICACION, TIPO_DOCUMENTO_FECHA_MODIFICACION)
 values  (1, 'DNI', 'Documento Nacional de Identidad', '01', null, '2025-08-27 02:42:03', null, '2025-08-27 02:42:03');
