@@ -1,0 +1,5 @@
+# Created at 2025-09-01T12:37:46.366
+Boot Manifest-JAR contains absolute paths in classpath 'D:\pid\backend\formulario\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

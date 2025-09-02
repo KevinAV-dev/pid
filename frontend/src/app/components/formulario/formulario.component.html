@@ -1,0 +1,134 @@
+<div class="main-container">
+  <div class="form-container">
+    <form [formGroup]="formularioInscripcion" (ngSubmit)="onSubmit()">
+      <input type="hidden" formControlName="personaId">
+      <input type="hidden" formControlName="institucionEducativaId">
+      <input type="hidden" formControlName="directorId">
+      <input type="hidden" formControlName="correoId">
+      <input type="hidden" formControlName="telefonoId">
+      <input type="hidden" formControlName="correoDirectorId">
+      <input type="hidden" formControlName="telefonoDirectorId">
+      <h1>Formulario de Verificación</h1>
+
+      <fieldset>
+        <legend>Verificación de DNI</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dni">DNI:</label>
+            <div class="input-with-button">
+              <input type="text" id="dni" formControlName="dni" maxlength="8" required>
+              <button type="button" (click)="buscarDni()">Buscar</button>
+            </div>
+            <div *ngIf="formularioInscripcion.get('dni')?.invalid && formularioInscripcion.get('dni')?.touched" class="error-message">
+              El DNI debe tener 8 dígitos.
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset [disabled]="!formularioInscripcion.get('dni')?.valid">
+        <legend>Datos Personales</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombres">Nombres:</label>
+            <input type="text" id="nombres" formControlName="nombres" required>
+          </div>
+          <div class="form-group">
+            <label for="apellidos">Apellidos:</label>
+            <input type="text" id="apellidos" formControlName="apellidos" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="mentor">Mentor:</label>
+            <input type="text" id="mentor" formControlName="mentor" required>
+          </div>
+          <div class="form-group">
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" formControlName="correo" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="celular">Celular:</label>
+          <input type="tel" id="celular" formControlName="celular" pattern="[0-9]{9}" required>
+        </div>
+      </fieldset>
+
+      <fieldset [disabled]="!formularioInscripcion.get('dni')?.valid">
+        <legend>Datos de la Institución</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="codigoModular">Código Modular:</label>
+            <input type="text" id="codigoModular" formControlName="codigoModular" required>
+          </div>
+
+          <div class="form-group">
+            <label for="nombreInstitucion">Nombre de la Institución:</label>
+            <input type="text" id="nombreInstitucion" formControlName="nombreInstitucion" required>
+          </div>
+
+          <div class="form-group-button">
+            <button type="button" (click)="openModal()">Buscar</button>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset [disabled]="!formularioInscripcion.get('dni')?.valid">
+        <legend>Datos del Director</legend>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombresDirector">Nombres:</label>
+            <input type="text" id="nombresDirector" formControlName="nombresDirector" required>
+          </div>
+          <div class="form-group">
+            <label for="apellidosDirector">Apellidos:</label>
+            <input type="text" id="apellidosDirector" formControlName="apellidosDirector" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefonoDirector">Teléfono:</label>
+            <input type="tel" id="telefonoDirector" formControlName="telefonoDirector" required>
+          </div>
+          <div class="form-group">
+            <label for="emailDirector">Email:</label>
+            <input type="email" id="emailDirector" formControlName="emailDirector" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset [disabled]="!formularioInscripcion.get('dni')?.valid">
+        <legend>Observaciones</legend>
+        <textarea id="observaciones" formControlName="observaciones" rows="4"></textarea>
+      </fieldset>
+
+      <button type="submit" [disabled]="formularioInscripcion.invalid">Enviar Formulario</button>
+    </form>
+  </div>
+
+  <div *ngIf="notification"
+       class="alert-container"
+       [ngClass]="{'alert-success': notification.type === 'success', 'alert-error': notification.type === 'error'}">
+    {{ notification.message }}
+  </div>
+</div>
+
+<div class="modal" [ngClass]="{'show': isModalOpen}">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeModal()">&times;</span>
+    <h2>Buscar Institución</h2>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="searchQuery">Código Modular / Nombre IE:</label>
+        <input type="text" id="searchQuery" [(ngModel)]="searchQuery" (input)="searchInstitutions()">
+      </div>
+    </div>
+    <ul class="institution-list">
+      <li *ngFor="let inst of filteredInstitutions" (click)="selectInstitution(inst)">
+        {{ inst.institucionEducativaNombre }} ({{ inst.institucionEducativaCodigoModular }})
+      </li>
+      <li *ngIf="!filteredInstitutions.length">No se encontraron resultados.</li>
+    </ul>
+  </div>
+</div>
+

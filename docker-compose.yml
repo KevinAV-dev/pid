@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # 1. Servicio de la Base de Datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: mysql-db
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456 # ¡Cámbiala por una contraseña segura!
+      MYSQL_DATABASE: formulario
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Spring2025$
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  # 2. Servicio del Backend (Spring Boot)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - db
+    environment:
+      # Usa el nombre del servicio 'db' para conectarte a la base de datos
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/formulario
+      SPRING_DATASOURCE_USERNAME: admin
+      SPRING_DATASOURCE_PASSWORD: Spring2025$
+
+  # 3. Servicio del Frontend (Angular)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    restart: always
+    depends_on:
+      - backend
+
+# Volúmenes para datos persistentes de Docker
+volumes:
+  mysql_data:

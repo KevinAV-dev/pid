@@ -1,0 +1,47 @@
+mat-card {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+mat-form-field {
+  margin-bottom: 15px;
+}
+
+mat-chip-grid {
+  min-height: 50px; /* Asegura que el área de chips sea visible */
+  border: 1px solid rgba(0, 0, 0, 0.12); /* Similar al borde de mat-form-field */
+  border-radius: 4px;
+  padding: 8px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+mat-chip-grid input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  padding: 0 5px;
+  height: 32px; /* Altura de los chips */
+}
+
+mat-chip-row {
+  margin: 4px;
+}
+
+.mat-mdc-form-field-suffix {
+  margin-left: 10px;
+}
