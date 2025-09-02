@@ -1,5 +1,20 @@
 USE formulario;
 
+create table PID_TIPO_DOCUMENTO
+(
+    TIPO_DOCUMENTO_ID                   int auto_increment
+        primary key,
+    TIPO_DOCUMENTO_CODIGO               varchar(10)                            not null,
+    TIPO_DOCUMENTO_DESCRIPCION          varchar(300) default 'SIN DESCRIPCIÓN' null,
+    TIPO_DOCUMENTO_ESTADO               char(2)      default '01'              not null comment '01: Activo, 02: Inactivo',
+    TIPO_DOCUMENTO_USUARIO_CREACION     int                                    null,
+    TIPO_DOCUMENTO_FECHA_CREACION       datetime     default CURRENT_TIMESTAMP null,
+    TIPO_DOCUMENTO_USUARIO_MODIFICACION int                                    null,
+    TIPO_DOCUMENTO_FECHA_MODIFICACION   datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
+    constraint PID_TIPO_DOCUMENTO_UK_1
+        unique (TIPO_DOCUMENTO_CODIGO)
+);
+
 create table PID_PERSONA
 (
     PERSONA_ID                   int auto_increment
@@ -22,20 +37,7 @@ create table PID_PERSONA
         foreign key (PERSONA_TIPO_DOCUMENTO_ID) references PID_TIPO_DOCUMENTO (TIPO_DOCUMENTO_ID)
 );
 
-create table PID_TIPO_DOCUMENTO
-(
-    TIPO_DOCUMENTO_ID                   int auto_increment
-        primary key,
-    TIPO_DOCUMENTO_CODIGO               varchar(10)                            not null,
-    TIPO_DOCUMENTO_DESCRIPCION          varchar(300) default 'SIN DESCRIPCIÓN' null,
-    TIPO_DOCUMENTO_ESTADO               char(2)      default '01'              not null comment '01: Activo, 02: Inactivo',
-    TIPO_DOCUMENTO_USUARIO_CREACION     int                                    null,
-    TIPO_DOCUMENTO_FECHA_CREACION       datetime     default CURRENT_TIMESTAMP null,
-    TIPO_DOCUMENTO_USUARIO_MODIFICACION int                                    null,
-    TIPO_DOCUMENTO_FECHA_MODIFICACION   datetime     default CURRENT_TIMESTAMP null on update CURRENT_TIMESTAMP,
-    constraint PID_TIPO_DOCUMENTO_UK_1
-        unique (TIPO_DOCUMENTO_CODIGO)
-);
+
 
 create table PID_CORREO
 (
