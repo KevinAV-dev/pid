@@ -1953,7 +1953,7 @@ values  (2, 1, '00446164', 'JUAN', 'BAUTISTA', '01', null, null, '01', null, '20
         (1821, 1, '1821', 'JUAN', 'BAUTISTA SUAQUITA', '01', null, null, '01', null, '2025-08-27 03:52:49', null, '2025-08-27 03:53:19');
 
         insert into formulario.PID_NOVEL (NOVEL_ID, NOVEL_PERSONA_ID, NOVEL_GRUPO_INSCRIPCION_ID, NOVEL_INSTITUCION_EDUCATIVA_ID, NOVEL_USUARIO_CREACION, NOVEL_FECHA_CREACION, NOVEL_USUARIO_MODIFICACION, NOVEL_FECHA_MODIFICACION)
-values  (1, 2, null, 1, null, '2025-08-27 04:04:19', null, '2025-08-27 04:04:19'),
+values  (1, 2, null, null, null, '2025-08-27 04:04:19', null, '2025-08-27 04:04:19'),
         (2, 3, null, null, null, '2025-08-27 06:21:17', null, '2025-08-27 06:21:17'),
         (3, 4, null, null, null, '2025-08-27 06:21:24', null, '2025-08-27 06:21:24'),
         (4, 5, null, null, null, '2025-08-27 06:21:31', null, '2025-08-27 06:21:31');
