@@ -24,6 +24,9 @@ export class FormularioComponent implements OnInit, OnDestroy {
   notification: { message: string, type: 'success' | 'error' | null } | null = null;
   private notificationSubscription: Subscription | undefined;
 
+  // Corregido: Define la URL base de tu backend con el puerto 8080
+  private apiUrl = 'http://154.12.224.158:8080/api/formulario';
+
   constructor(private fb: FormBuilder, private http: HttpClient, private notificationService: NotificationService) {
     this.formularioInscripcion = this.fb.group({
       personaId: [null],
@@ -75,7 +78,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   loadInstitutions(): void {
-    const url = '/api/formulario/instituciones';
+    // Corregido: Usa la URL completa
+    const url = `${this.apiUrl}/instituciones`;
     this.http.get<any[]>(url).subscribe({
       next: (response) => {
         this.institutions = response;
@@ -92,7 +96,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
     const dniControl = this.formularioInscripcion.get('dni');
     if (dniControl?.valid) {
       const dni = dniControl.value;
-      const url = `/api/formulario/info/${dni}`;
+      // Corregido: Usa la URL completa
+      const url = `${this.apiUrl}/info/${dni}`;
 
       this.http.get<any>(url).subscribe({
         next: (response) => {
@@ -170,7 +175,8 @@ export class FormularioComponent implements OnInit, OnDestroy {
         observaciones: formValue.observaciones
       };
 
-      const url = '/api/formulario/update';
+      // Corregido: Usa la URL completa
+      const url = `${this.apiUrl}/update`;
 
       this.http.put(url, datosAEnviar).subscribe({
         next: (response) => {
