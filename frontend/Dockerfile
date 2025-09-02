@@ -1,34 +1,34 @@
-# --- Etapa 1: Construcción de la aplicación de Angular ---
-# Utiliza una imagen de Node.js para compilar tu aplicación.
+# Etapa 1: Construir la aplicación Angular
+# Usamos una imagen de Node.js como base para compilar el proyecto.
 FROM node:20-alpine AS build
 
-# Establece el directorio de trabajo dentro del contenedor.
-WORKDIR /app
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /usr/src/app
 
-# Copia los archivos de configuración de dependencias para instalarlas.
-COPY package*.json ./
+# Copiar package.json y package-lock.json para instalar las dependencias
+# Esto aprovecha el caché de Docker si las dependencias no han cambiado.
+COPY package.json package-lock.json ./
 
-# Instala las dependencias del proyecto.
+# Instalar las dependencias del proyecto
 RUN npm install
 
-# Copia el resto del código fuente de Angular.
+# Copiar el resto del código fuente al contenedor
 COPY . .
 
-# Compila la aplicación para producción.
-RUN npm run build -- --output-path=./dist/app --base-href=/
+# Compilar la aplicación Angular en modo de producción
+# El comando 'ng build' generará los archivos estáticos en la carpeta 'dist'.
+RUN npm run build --prod
 
-# --- Etapa 2: Servir la aplicación con Nginx ---
-# Utiliza una imagen ligera de Nginx para servir los archivos estáticos.
-FROM nginx:stable-alpine
+# Etapa 2: Servir la aplicación con Nginx
+# Usamos una imagen ligera de Nginx para servir los archivos estáticos.
+FROM nginx:alpine
 
-# Copia tu archivo de configuración de Nginx personalizado.
-COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+# Copiar los archivos de la aplicación compilada desde la etapa "build"
+# al directorio por defecto de Nginx para servir páginas web.
+COPY --from=build /usr/src/app/dist/app /usr/share/nginx/html
 
-# Copia los archivos de build de la etapa anterior al directorio de Nginx.
-COPY --from=build /app/dist/app /usr/share/nginx/html
-
-# Expone el puerto 80, el puerto estándar para tráfico HTTP.
+# Exponer el puerto 80 para que el contenedor pueda recibir tráfico HTTP
 EXPOSE 80
 
-# Comando para iniciar Nginx.
+# Comando para iniciar Nginx en primer plano
 CMD ["nginx", "-g", "daemon off;"]
