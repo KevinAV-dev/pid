@@ -1,6 +1,6 @@
 # --- Etapa 1: Construcción de la aplicación de Angular ---
 # Utiliza una imagen de Node.js para compilar tu aplicación.
-FROM node:18-alpine AS build
+FROM node:20-alpine AS build
 
 # Establece el directorio de trabajo dentro del contenedor.
 WORKDIR /app
