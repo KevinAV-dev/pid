@@ -12,4 +12,6 @@ public interface NovelRepository extends JpaRepository<Novel, Long> {
 
     @Query("SELECT n FROM Novel n WHERE n.persona.personaTipoDocumentoValor = :personaTipoDocumentoValor")
     Optional<Novel> findByPersonaTipoDocumentoValor(@Param("personaTipoDocumentoValor") String personaTipoDocumentoValor);
+
+    Optional<Novel> findByPersona_PersonaId(Long personaId);
 }

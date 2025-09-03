@@ -24,7 +24,7 @@ public class InstitucionEducativa {
     @Column(name = "INSTITUCION_EDUCATIVA_ID")
     private Long institucionEducativaId;
 
-    @Column(name = "INSTITUCION_EDUCATIVA_UGEL_ID", nullable = false)
+    @Column(name = "INSTITUCION_EDUCATIVA_UGEL_ID")
     private Integer institucionEducativaUgelId;
 
     @Column(name = "INSTITUCION_EDUCATIVA_CODIGO_MODULAR", unique = true, length = 10, nullable = false)

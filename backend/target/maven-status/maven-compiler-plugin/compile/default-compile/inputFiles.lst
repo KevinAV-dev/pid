@@ -1,5 +1,6 @@
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\Correo.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\CorreoRepository.java
+D:\pid\front\backend\src\main\java\com\app\springboot\formulario\CorsConfig.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\Director.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\DirectorRepository.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\FormularioApplication.java
@@ -16,3 +17,5 @@ D:\pid\front\backend\src\main\java\com\app\springboot\formulario\Persona.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\PersonaRepository.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\Telefono.java
 D:\pid\front\backend\src\main\java\com\app\springboot\formulario\TelefonoRepository.java
+D:\pid\front\backend\src\main\java\com\app\springboot\formulario\Verificacion.java
+D:\pid\front\backend\src\main\java\com\app\springboot\formulario\VerificacionRepository.java

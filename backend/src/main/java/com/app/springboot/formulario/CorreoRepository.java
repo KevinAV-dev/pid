@@ -14,4 +14,6 @@ public interface CorreoRepository extends JpaRepository<Correo, Long> {
     @Modifying
     @Query("UPDATE Correo c SET c.correoDescripcion = :nuevoCorreo WHERE c.persona.personaId = :personaId")
     int updateCorreoByPersonaId(@Param("personaId") Long personaId, @Param("nuevoCorreo") String nuevoCorreo);
+
+    Optional<Correo> findByCorreoDescripcionAndPersona_PersonaIdNot(String correoDescripcion, Long persona_personaId);
 }

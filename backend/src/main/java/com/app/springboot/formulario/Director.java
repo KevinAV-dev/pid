@@ -21,7 +21,7 @@ public class Director {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "DIRECTOR_ID")
-    private Integer directorId;
+    private Long directorId;
 
     @Column(name = "DIRECTOR_USUARIO_CREACION")
     private Integer directorUsuarioCreacion;

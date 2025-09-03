@@ -1,9 +1,11 @@
 package com.app.springboot.formulario;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "PID_NOVEL")
@@ -17,7 +19,7 @@ public class Novel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOVEL_ID")
-    private Integer novelId;
+    private Long novelId;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "NOVEL_PERSONA_ID", referencedColumnName = "PERSONA_ID", nullable = false)
@@ -29,6 +31,10 @@ public class Novel {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "NOVEL_INSTITUCION_EDUCATIVA_ID", referencedColumnName = "INSTITUCION_EDUCATIVA_ID", nullable = false)
     private InstitucionEducativa institucionEducativa;
+
+    @OneToOne(mappedBy = "novel", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonManagedReference
+    private Verificacion verificacion;
 
     @Column(name = "NOVEL_USUARIO_CREACION")
     private Integer novelUsuarioCreacion;

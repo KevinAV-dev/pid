@@ -24,7 +24,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
   notification: { message: string, type: 'success' | 'error' | null } | null = null;
   private notificationSubscription: Subscription | undefined;
 
-  // Corregido: Define la URL base de tu backend con el puerto 8080
+  // Define la URL base de tu backend con el puerto 8080
   private apiUrl = 'http://154.12.224.158:8080/api/formulario';
 
   constructor(private fb: FormBuilder, private http: HttpClient, private notificationService: NotificationService) {
@@ -78,11 +78,16 @@ export class FormularioComponent implements OnInit, OnDestroy {
   }
 
   loadInstitutions(): void {
-    // Corregido: Usa la URL completa
     const url = `${this.apiUrl}/instituciones`;
     this.http.get<any[]>(url).subscribe({
       next: (response) => {
-        this.institutions = response;
+        // Corregido: Mapea la respuesta para añadir la propiedad del director
+        this.institutions = response.map(inst => ({
+          ...inst,
+          directorDisplay: inst.director
+            ? `${inst.director.persona.personaNombres} ${inst.director.persona.personaApellidos}`
+            : 'Sin asignar'
+        }));
         this.filteredInstitutions = [...this.institutions];
       },
       error: (error) => {
@@ -96,7 +101,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
     const dniControl = this.formularioInscripcion.get('dni');
     if (dniControl?.valid) {
       const dni = dniControl.value;
-      // Corregido: Usa la URL completa
       const url = `${this.apiUrl}/info/${dni}`;
 
       this.http.get<any>(url).subscribe({
@@ -125,6 +129,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
               apellidosDirector: response.institucionEducativa?.director?.persona?.personaApellidos,
               emailDirector: response.institucionEducativa?.director?.persona?.correos?.[0]?.correoDescripcion,
               telefonoDirector: response.institucionEducativa?.director?.persona?.telefonos?.[0]?.telefonoDescripcion,
+              observaciones: response.verificacion?.verificacionObservaciones
             });
 
             // Habilita solo los campos que el usuario puede editar
@@ -175,7 +180,6 @@ export class FormularioComponent implements OnInit, OnDestroy {
         observaciones: formValue.observaciones
       };
 
-      // Corregido: Usa la URL completa
       const url = `${this.apiUrl}/update`;
 
       this.http.put(url, datosAEnviar).subscribe({
@@ -185,7 +189,7 @@ export class FormularioComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           console.error('Error al actualizar los datos:', error);
-          // this.notificationService.showError('Error al actualizar. Intente de nuevo.');
+          this.notificationService.showError(error.error.mensaje);
         }
       });
     } else {

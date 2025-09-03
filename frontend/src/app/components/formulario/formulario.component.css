@@ -233,3 +233,38 @@ input[disabled] {
   color: #6c757d; /* Color de texto más tenue */
   cursor: not-allowed; /* Cambia el cursor para indicar que no se puede interactuar */
 }
+
+.institution-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.institution-list li {
+  padding: 15px;
+  border-bottom: 1px solid #e5e7eb;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  border-radius: 8px;
+}
+
+.institution-list li:hover {
+  background-color: #f9fafb;
+  transform: translateX(5px);
+}
+
+.institution-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.institution-name {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.director-info {
+  font-size: 0.875rem;
+  color: #6b7280;
+}

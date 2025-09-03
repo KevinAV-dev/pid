@@ -125,10 +125,14 @@
     </div>
     <ul class="institution-list">
       <li *ngFor="let inst of filteredInstitutions" (click)="selectInstitution(inst)">
-        {{ inst.institucionEducativaNombre }} ({{ inst.institucionEducativaCodigoModular }})
+        <div class="institution-info">
+          <div class="institution-name">{{ inst.institucionEducativaNombre }} ({{ inst.institucionEducativaCodigoModular }})</div>
+          <div class="director-info">Director: {{ inst.directorDisplay }}</div>
+        </div>
       </li>
       <li *ngIf="!filteredInstitutions.length">No se encontraron resultados.</li>
     </ul>
   </div>
 </div>
+
 

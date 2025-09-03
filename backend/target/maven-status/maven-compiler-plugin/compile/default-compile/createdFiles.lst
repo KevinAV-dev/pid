@@ -16,11 +16,15 @@ com\app\springboot\formulario\Director.class
 com\app\springboot\formulario\FormularioServicio.class
 com\app\springboot\formulario\Correo$CorreoBuilder.class
 com\app\springboot\formulario\FormularioController.class
+com\app\springboot\formulario\Verificacion.class
 com\app\springboot\formulario\Novel.class
 com\app\springboot\formulario\Info.class
 com\app\springboot\formulario\Novel$NovelBuilder.class
 com\app\springboot\formulario\TelefonoRepository.class
+com\app\springboot\formulario\Verificacion$VerificacionBuilder.class
 com\app\springboot\formulario\InstitucionEducativa$InstitucionEducativaBuilder.class
 com\app\springboot\formulario\FormularioData.class
+com\app\springboot\formulario\VerificacionRepository.class
+com\app\springboot\formulario\CorsConfig.class
 com\app\springboot\formulario\Telefono$TelefonoBuilder.class
 com\app\springboot\formulario\NovelRepository.class

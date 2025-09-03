@@ -5,9 +5,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/formulario")
-@CrossOrigin(origins = "http://154.12.224.158")
 public class FormularioController {
 
     @Autowired
@@ -27,12 +28,18 @@ public class FormularioController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<Void> recibirDatos(@RequestBody FormularioData datos) {
+    public ResponseEntity<Map<String, String>> recibirDatos(@RequestBody FormularioData datos) {
         try {
             String mensaje = formularioServicio.updateInfo(datos);
-            return ResponseEntity.noContent().build();
+
+            if (mensaje.startsWith("Error:")) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("mensaje", mensaje));
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("mensaje", mensaje));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("mensaje", "Error interno del servidor"));
         }
     }
 }
