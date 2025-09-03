@@ -21,6 +21,7 @@ services:
       timeout: 5s
       retries: 5
     restart: always
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
 
   # 2. Servicio del Backend (Spring Boot)
   backend:
